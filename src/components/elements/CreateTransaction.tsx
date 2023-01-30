@@ -6,6 +6,15 @@ import { RequestData } from 'next/dist/server/web/types';
 
 const CreateTransaction = () => {
 
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form) as unknown as Iterable<[RequestData, FormDataEntryValue]>;
+
+    const requestData : RequestData = Object.fromEntries(formData);
+    console.log(requestData);
+  }
+
   function checkAccount(address : string) {
     const patternAddress = /^0x[a-fA-F0-9]{40}$/;
     const patternENS = /^[a-zA-Z0-9()]{1,256}\.eth$\s*/;
@@ -94,7 +103,7 @@ const CreateTransaction = () => {
 
 
           <div className='btn-div h-[50px] mt-[60px]'>
-            <button type='submit' className='w-full h-full bg-secondary-600 rounded-sm'> Submit Trade</button>
+            <button onClick={onSubmit} type='submit' className='w-full h-full bg-secondary-600 rounded-sm'> Submit Trade</button>
           </div>
 
         </div>
